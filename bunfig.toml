@@ -1,0 +1,5 @@
+[serve.static]
+plugins = []
+env = "BUN_PUBLIC_*"
+[install]
+workspaces = true

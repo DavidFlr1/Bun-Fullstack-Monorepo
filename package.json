@@ -1,0 +1,24 @@
+{
+  "name": "typestorming",
+  "private": true,
+  "workspaces": {
+    "packages": ["packages/*"],
+    "catalogs": {
+      "devDependencies": {
+        "@types/bun": "latest",
+				"@types/react": "19.2.0",
+				"@types/react-dom": "19.2.0",
+        "typescript": "^5",
+        "concurrently": "*"
+      }
+    }
+  },
+  "scripts": {
+    "dev": "concurrently \"bun --cwd packages/backend dev\" \"bun --cwd packages/frontend dev\"",
+    "dev:frontend": "bun --cwd packages/frontend dev",
+    "dev:backend": "bun --cwd packages/backend dev",
+    "exp": "bun --cwd packages/frontend build",
+    "build": "bun --cwd packages/frontend build && bun --cwd packages/backend build",
+    "start": "bun --cwd packages/backend start"
+  }
+}
