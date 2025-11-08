@@ -38,18 +38,39 @@
 import { Hono } from "hono";
 import { swaggerUI } from "@hono/swagger-ui";
 import { userRoutes } from "./src/api";
-import { openApiSpec } from "@/core/openapi";
+import { openApiSpec, generateServiceSpec } from "@/core/openapi";
 
 const app = new Hono();
 
 // Mount routes
 app.route("/api", userRoutes);
 
-// Expose openapi.json so frontend/tools can fetch it
-app.get("/openapi.json", (c) => c.json(openApiSpec));
+// Expose openapi.json with optional service filter
+app.get("/openapi.json", (c) => {
+  const service = c.req.query("service");
+
+  if (service) {
+    // Generate filtered spec for specific service
+    const filteredSpec = generateServiceSpec(service);
+    if (!filteredSpec) {
+      return c.json({ error: `Service '${service}' not found` }, 404);
+    }
+    return c.json(filteredSpec);
+  }
+
+  // Return full spec
+  return c.json(openApiSpec);
+});
 
 // Swagger UI
-app.get("/docs", swaggerUI({ url: "/openapi.json" }));
+// Access full docs at: /docs
+// Access service-specific docs at: /docs?service=users
+app.get("/docs", (c, next) => {
+  const service = c.req.query("service");
+  const url = service ? `/openapi.json?service=${service}` : "/openapi.json";
+  const handler = swaggerUI({ url });
+  return handler(c, next);
+});
 
 // Health check
 app.get("/", (c) => c.text("OK - backend running"));

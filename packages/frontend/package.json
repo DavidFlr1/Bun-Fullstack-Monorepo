@@ -5,15 +5,20 @@
   "private": true,
   "scripts": {
     "dev": "concurrently \"bunx tailwindcss -i ./src/styles/global.css -o ./public/global.css --watch\" \"bun run server.tsx\"",
-    "build:css": "tailwindcss -i ./src/styles/global.css -o ./public/global.css --watch"
+    "build:css": "tailwindcss -i ./src/styles/global.css -o ./public/global.css --watch",
+    "schemas": "openapi-typescript http://localhost:4000/openapi.json -o ./src/types/schemas/api.d.ts",
+    "schemas:service": "concurrently -P \"openapi-typescript http://localhost:4000/openapi.json?service={@}\" \"-o ./src/types/schemas/{@}.d.ts\"",
+    "schemas:test": "openapi-typescript http://localhost:4000/openapi.json?service=$SERVICE -o ./src/types/schemas/$SERVICE.d.ts"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.90.7",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@types/serve-static": "^2.2.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.545.0",
+    "openapi-fetch": "^0.15.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "serve-static": "^2.2.0",
@@ -21,13 +26,14 @@
   },
   "devDependencies": {
     "@types/bun": "latest",
+    "autoprefixer": "^10.x",
     "bun-plugin-tailwind": "^0.1.2",
     "concurrently": "^9.2.1",
-    "tailwindcss": "3.4.14",
-    "tw-animate-css": "^1.4.0",
+    "openapi-typescript": "^7.10.1",
     "postcss": "^8.x",
-    "autoprefixer": "^10.x",
-    "tsx": "^4.x" 
+    "tailwindcss": "3.4.14",
+    "tsx": "^4.x",
+    "tw-animate-css": "^1.4.0"
   },
   "peerDependencies": {
     "typescript": "^5",

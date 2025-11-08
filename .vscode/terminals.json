@@ -1,0 +1,39 @@
+{
+  "autorun": false,
+  "terminals": [
+    {
+      "name": "Local",
+      "description": "Terminal to run localhost",
+      "command": "npm run dev",
+      "icon": "vm",
+      "color": "terminal.ansiGreen",
+      "execute": false,
+      "recycle": true,
+      "focus": true
+    },
+    {
+      "name": "Git",
+      "split": "Local",
+      "description": "Terminal to run git",
+      "command": "git pull origin N",
+      "color": "terminal.ansiBlue",
+      "icon": "git-branch",
+      "execute": false,
+      "recycle": true
+    },
+
+    {
+      "name": "Bash",
+      "description": "Terminal to execute the bash commands",
+      "color": "terminal.ansiYellow",
+      "icon": "terminal-bash",
+      "commands": [],
+      "recycle": true,
+      "execute": false,
+      "shellPath": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "_comments": {
+        "To run": "cd bot && chmod +x deploy-bots.py && ./deploy-bots.py"
+      }
+    }
+  ]
+}
