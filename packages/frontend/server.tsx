@@ -5,6 +5,7 @@ import fs from "fs";
 import path from "path";
 
 import React from "react";
+import { Providers } from "./src/components/Layout";
 
 const router = new FileSystemRouter({
   style: "nextjs",
@@ -35,9 +36,12 @@ serve({
           <meta charSet="utf-8" />
           <title>Bun + Tailwind</title>
           <link rel="stylesheet" href="/global.css" />
+          <link rel="icon" href="/favicon.ico" />
         </head>
         <body>
-          <Page />
+          <Providers>
+            <Page />
+          </Providers>
         </body>
       </html>
     );
