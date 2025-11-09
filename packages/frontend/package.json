@@ -7,8 +7,7 @@
     "dev": "concurrently \"bunx tailwindcss -i ./src/styles/global.css -o ./public/global.css --watch\" \"bun run server.tsx\"",
     "build:css": "tailwindcss -i ./src/styles/global.css -o ./public/global.css --watch",
     "schemas": "openapi-typescript http://localhost:4000/openapi.json -o ./src/types/schemas/api.d.ts",
-    "schemas:service": "concurrently -P \"openapi-typescript http://localhost:4000/openapi.json?service={@}\" \"-o ./src/types/schemas/{@}.d.ts\"",
-    "schemas:test": "openapi-typescript http://localhost:4000/openapi.json?service=$SERVICE -o ./src/types/schemas/$SERVICE.d.ts"
+    "schemas:service": "bash -c 'serviceName=$1; openapi-typescript http://localhost:4000/openapi.json?service=$serviceName -o ./src/types/schemas/$serviceName.d.ts' bash"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.7",

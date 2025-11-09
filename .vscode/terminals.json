@@ -1,10 +1,10 @@
 {
-  "autorun": false,
+  "autorun": true,
   "terminals": [
     {
       "name": "Local",
       "description": "Terminal to run localhost",
-      "command": "npm run dev",
+      "command": "bun run dev:frontend",
       "icon": "vm",
       "color": "terminal.ansiGreen",
       "execute": false,
@@ -12,8 +12,17 @@
       "focus": true
     },
     {
-      "name": "Git",
+      "name": "Server",
       "split": "Local",
+      "description": "Terminal to execute the server",
+      "command": "bun run dev:backend",
+      "icon": "server-environment",
+      "color": "terminal.ansiCyan",
+      "execute": false,
+      "recycle": true
+    },
+    {
+      "name": "Git",
       "description": "Terminal to run git",
       "command": "git pull origin N",
       "color": "terminal.ansiBlue",
@@ -21,7 +30,6 @@
       "execute": false,
       "recycle": true
     },
-
     {
       "name": "Bash",
       "description": "Terminal to execute the bash commands",
@@ -31,9 +39,6 @@
       "recycle": true,
       "execute": false,
       "shellPath": "C:\\Program Files\\Git\\bin\\bash.exe",
-      "_comments": {
-        "To run": "cd bot && chmod +x deploy-bots.py && ./deploy-bots.py"
-      }
     }
   ]
 }

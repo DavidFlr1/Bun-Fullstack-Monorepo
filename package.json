@@ -17,6 +17,7 @@
     "dev": "concurrently \"bun --cwd packages/backend dev\" \"bun --cwd packages/frontend dev\"",
     "dev:frontend": "bun --cwd packages/frontend dev",
     "dev:backend": "bun --cwd packages/backend dev",
+    "dev:schemas": "bun --cwd packages/frontend schemas",
     "exp": "bun --cwd packages/frontend build",
     "build": "bun --cwd packages/frontend build && bun --cwd packages/backend build",
     "start": "bun --cwd packages/backend start"
