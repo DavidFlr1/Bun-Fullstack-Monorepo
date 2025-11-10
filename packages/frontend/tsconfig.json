@@ -4,9 +4,10 @@
     "composite": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@bunext/*": ["./.bunext/*"]
     }
   },
-  "include": ["./**/*"],
-  "exclude": ["dist", "node_modules"]
+  "include": ["./**/*", ".bunext/**/*"],
+  "exclude": ["dist", "node_modules", "public"]
 }

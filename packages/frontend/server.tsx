@@ -1,17 +1,20 @@
+/**
+ * Frontend Server
+ * Simplified server using .bunext framework utilities
+ */
+
 import { serve } from "bun";
-import { FileSystemRouter } from "bun";
-import { renderToReadableStream } from "react-dom/server";
 import fs from "fs";
 import path from "path";
-
-import React from "react";
 import { Providers } from "./src/components/Layout";
+import { createRouter, matchRoute } from "./.bunext/core/router";
+import { renderPage } from "./.bunext/core/render";
 
-const router = new FileSystemRouter({
-  style: "nextjs",
-  dir: "./src/pages",
-  origin: "http://localhost:3000",
-});
+const isDev = process.env.NODE_ENV !== "production";
+const pagesDir = path.join(import.meta.dir, "src/pages");
+
+// Create the file system router
+const router = createRouter("./src/pages", "http://localhost:3000");
 
 serve({
   port: 3000,
@@ -25,29 +28,28 @@ serve({
       return new Response(file);
     }
 
-    // Match route
-    const match = router.match(req);
+    // Match the route using .bunext framework
+    const match = matchRoute(router, req);
     if (!match) return new Response("Not found", { status: 404 });
 
-    const Page = require(match.filePath).default;
-    const stream = await renderToReadableStream(
-      <html lang="en">
-        <head>
-          <meta charSet="utf-8" />
-          <title>Bun + Tailwind</title>
-          <link rel="stylesheet" href="/global.css" />
-          <link rel="icon" href="/favicon.ico" />
-        </head>
-        <body>
-          <Providers>
-            <Page />
-          </Providers>
-        </body>
-      </html>
-    );
+    // Render the page using .bunext framework
+    const stream = await renderPage({
+      match,
+      pagesDir,
+      Providers,
+      title: "Bun + React",
+      cssPath: "/global.css",
+      clientScriptPath: "/.bunext/client-entry.js",
+      enableHMR: isDev,
+    });
 
     return new Response(stream, {
       headers: { "Content-Type": "text/html; charset=utf-8" },
     });
   },
+  development: isDev && {
+    hmr: true,
+  },
 });
+
+console.log(`o Frontend server running on http://localhost:3000`);

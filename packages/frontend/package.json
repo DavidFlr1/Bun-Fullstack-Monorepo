@@ -4,8 +4,11 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"bunx tailwindcss -i ./src/styles/global.css -o ./public/global.css --watch\" \"bun run server.tsx --watch\"",
+    "dev": "concurrently \"bunx tailwindcss -i ./src/styles/global.css -o ./public/global.css --watch\" \"bun run .bunext/build.ts --watch\" \"bun run server.tsx --watch\"",
+    "build": "bunx tailwindcss -i ./src/styles/global.css -o ./public/global.css && bun run .bunext/build.ts",
     "build:css": "tailwindcss -i ./src/styles/global.css -o ./public/global.css --watch",
+    "build:client": "bun .bunext/build.ts",
+    "routes": "bun .bunext/generate-routes.ts",
     "schemas": "openapi-typescript http://localhost:4000/openapi.json -o ./src/types/schemas/api.d.ts",
     "schemas:service": "bash -c 'serviceName=$1; openapi-typescript http://localhost:4000/openapi.json?service=$serviceName -o ./src/types/schemas/$serviceName.d.ts' bash"
   },

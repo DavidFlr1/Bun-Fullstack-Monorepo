@@ -4,6 +4,10 @@ node_modules
 # output
 out
 dist
+public/client.js
+public/client.js.map
+public/global.css
+public/.bunext/
 *.tgz
 
 # code coverage
