@@ -12,7 +12,7 @@
  */
 
 import { hydrate } from "./core/hydration";
-import { Providers } from "../src/components/Layout";
+import { Providers } from "../src/lib/providers";
 import { routes, layouts } from "./routes.generated";
 
 // Hydrate the application with auto-discovered routes

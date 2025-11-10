@@ -6,7 +6,7 @@
 import { serve } from "bun";
 import fs from "fs";
 import path from "path";
-import { Providers } from "./src/components/Layout";
+import { Providers } from "./src/lib/providers";
 import { createRouter, matchRoute } from "./.bunext/core/router";
 import { renderPage } from "./.bunext/core/render";
 
